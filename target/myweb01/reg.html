@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>particles.js</title>
+    <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+    <meta name="author" content="Vincent Garreau" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" media="screen" href="css/style1.css">
+</head>
+<body>
+<div id="particles-js">
+    <div id="loginDiv">
+        <form action="reg" id="form">
+            <h1 style="text-align: center;color: aquamarine;">Ght</h1>
+            <p>用户名:<input id="userName" type="text" name="username" placeholder="请输入用户名"><label id="name_trip"></label><span id="name_span"></span></p>
+
+            <p>&nbsp&nbsp&nbsp密码:<input id="password" name="password" type="password" placeholder="请输入密码"><label id="password_trip"></label></p>
+
+            <div style="text-align: center;margin-top: 30px;">
+                <a href="reg"><input type="submit" class="button" id="regButton" value="注册" disabled="disabled"></a>
+                <input type="reset" class="button" value="重置">
+                <a href="login.html"><input type="button" class="button" value="去登录"></a>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- scripts -->
+<script src="js/jquery.min.js"></script>
+<script src="js/particles.min.js"></script>
+<script src="js/app.js"></script>
+<script>
+    $("#userName").blur(function () {
+        console.log("失去焦点...");
+        $.ajax({
+            type:"get",
+            url:"check",
+            data:"username="+$("#userName").val(),
+            success:function (msg) {
+                $("#name_span").text(msg);
+                if (msg=="该用户不存在" && $("#password").val().trim().length!=0){
+                    $("#regButton").attr('disabled',false);
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>
